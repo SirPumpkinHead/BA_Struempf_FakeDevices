@@ -1,0 +1,32 @@
+name: Publish Docker Container
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Build and push Docker image for fake valve
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: sirpumpkinhead/ba_struempf_fakedevices/fake-valve
+          tag_with_ref: true
+          dockerfile: Dockerfile_Valve
+      - name: Build and push Docker image for fake sensor
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: sirpumpkinhead/ba_struempf_fakedevices/fake-sensor
+          tag_with_ref: true
+          dockerfile: Dockerfile_Sensor
