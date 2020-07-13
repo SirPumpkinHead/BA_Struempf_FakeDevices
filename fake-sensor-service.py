@@ -43,6 +43,9 @@ class Program:
         self._mqtt_client = mqtt.Client()
 
     def run(self):
+        print("Waiting 10 seconds before sending first reading")
+        time.sleep(10)
+
         print("Running...")
         while True:
             print("Connecting to MQTT at " + MQTT_HOST + ":" + str(MQTT_PORT))

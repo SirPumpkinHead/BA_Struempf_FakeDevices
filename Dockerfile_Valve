@@ -1,0 +1,7 @@
+FROM python:3
+
+ADD fake-valve-service.py /
+
+RUN pip install paho-mqtt
+
+CMD [ "python", "-u" ,"./fake-valve-service.py" ]
