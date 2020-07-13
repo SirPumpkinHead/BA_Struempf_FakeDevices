@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Build and push Docker image for fake valve
+      - name: Build and push Docker image for fake valve (GitHub)
         uses: docker/build-push-action@v1.1.0
         with:
           username: ${{ github.actor }}
@@ -21,12 +21,28 @@ jobs:
           repository: sirpumpkinhead/ba_struempf_fakedevices/fake-valve
           tag_with_ref: true
           dockerfile: Dockerfile_Valve
-      - name: Build and push Docker image for fake sensor
+      - name: Build and push Docker image for fake sensor (GitHub)
         uses: docker/build-push-action@v1.1.0
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: sirpumpkinhead/ba_struempf_fakedevices/fake-sensor
+          tag_with_ref: true
+          dockerfile: Dockerfile_Sensor
+      - name: Build and push Docker image for fake valve (Docker Hub)
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: konstantinstruempf/ba_struempf_fake-valve
+          tag_with_ref: true
+          dockerfile: Dockerfile_Valve
+      - name: Build and push Docker image for fake sensor (Docker Hub)
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: konstantinstruempf/ba_struempf_fake-sensor
           tag_with_ref: true
           dockerfile: Dockerfile_Sensor
